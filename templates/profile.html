@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block pagetitle %} Profile {% endblock pagetitle %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">{% endblock %}
+
+
+{% block content %}
+    <h1>Welcome {{ user.username }}</h1>
+
+    {% if user.role == "Admin" %}
+        <a href="{{ url_for('admindash.admindashboard') }}">
+    <button type="button">Admin</button>
+</a>
+    {% endif %}
+    <!--<p>Role: {{ user.role }}</p>-->
+
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Expense</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ expense.description }}</td>
+                <td>{{ expense.date }} </td>
+                <td>
+                    <form action=" {{ url_for('dashboard.delete_expense', id=expense.id) }} " method="post">
+                        <button class="btn delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

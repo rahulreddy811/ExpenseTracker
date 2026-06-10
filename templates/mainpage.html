@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block pagetitle %} Expense Tracker{% endblock pagetitle %}
+
+{% block content %}
+    <h3> Welcome to expense tracker  </h3>
+    <a href="{{ url_for('dashboard.profile') }}"><button>Profile</button></a>
+    <br>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.expense.label }}
+            {{ form.expense() }}
+        </p>
+        <p>
+            {{ form.category.label }}
+            {{ form.category() }}
+        </p>
+        <p>
+            {{ form.amount.label }}
+            {{ form.amount() }}
+        </p>
+        <p>
+            {{ form.date.label }}
+            {{ form.date() }}
+        </p>
+        <p>
+            {{ form.submit() }}
+        </p>
+    </form>
+{% endblock content %}

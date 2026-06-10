@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block pagetitle %} Homepage {% endblock pagetitle %}
+
+{% block content %}
+    <center><p>Welcome to Expense Tracker</p></center>
+    <br>
+    <br>
+    <a href="{{ url_for('auth.signup') }}""><button>Signup</button></a>
+    <a href="{{ url_for('auth.login') }}""><button>Login</button></a>
+
+{% endblock content %}
