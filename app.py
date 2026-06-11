@@ -16,7 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SECRET_KEY'] = os.getenv(
-    'SECRET_KEY',
+    'f8s9d8f7s9df7s9df7s9df7s9df',
     'dev-key'   
 )
 
