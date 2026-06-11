@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block pagetitle %} login{% endblock pagetitle %}
-
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
 {% block content %}
-    <h3> login</h3>
-    <br>
+   <header><h3> Login</h3></header>
+   <main class="login-forms">
     <form method="post">
         {{ form.hidden_tag() }}
         <p>
@@ -18,4 +20,7 @@
             {{ form.submit() }}
         </p>
     </form>
+   </main>
+   <footer><a href="{{ url_for('auth.signup') }}"><button id="create">Create Account</button></a></footer>
+    
 {% endblock content %}

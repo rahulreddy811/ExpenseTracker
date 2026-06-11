@@ -1,6 +1,14 @@
-setTimeout(() => {
-            const popup = document.getElementById('flash-popup');
-            if (popup) {
-                popup.style.display = 'none';
-            }
-        }, 3000);
+document.addEventListener("DOMContentLoaded", function () {
+    const flashMessages = document.querySelectorAll(".flash-message");
+
+    setTimeout(() => {
+        flashMessages.forEach(msg => {
+            msg.style.opacity = "0";
+            msg.style.transform = "translateY(-10px)";
+            
+            setTimeout(() => {
+                msg.remove();
+            }, 300);
+        });
+    }, 3000); 
+});

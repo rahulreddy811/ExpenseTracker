@@ -10,7 +10,7 @@ def profile():
     userid  = session.get('user_id')
     user = User.query.get(userid)
     expenses = Expense.query.filter_by(user_id = userid)
-    return render_template('profile.html',user = user, expenses = expenses)
+    return render_template('profile.html',user = user, expenses = expenses,show_navbar=True)
 
 @dashboard.route('/delete/<int:id>',methods = ['POST'])
 @login_required
@@ -19,21 +19,22 @@ def delete_expense(id):
     userid = session.get('user_id')
 
     if not expense:
-        flash("Expense not found")
+        flash("Expense not found","error")
         return redirect(url_for('dashboard.profile'))
     
     
     if expense.user_id != userid :
         flash("Expense not found")
-        return redirect(url_for('dashboard.profile'))
+        return redirect(url_for('dashboard.profile',"error"))
     
     try:
         db.session.delete(expense)
         db.session.commit()
-        flash("Expense deleted successfully🎉")
+        flash("Expense deleted successfully🎉","success")
     except Exception as e:
         db.session.rollback()
         print(e)
-        flash("Something went wrong")
+        flash("Something went wrong","error")
     
     return redirect(url_for('dashboard.profile'))
+

@@ -20,10 +20,10 @@ def set_expense():
             exp_obj = Expense(description = expense, category = category, amount = amount, date = date, user_id = user_id)
             db.session.add(exp_obj)
             db.session.commit()
-            flash("Expense added")
+            flash("Expense added","success")
             return redirect(url_for('expense.set_expense'))
         except Exception as e:
             db.session.rollback()
-            flash("Failed to save ,Try again")
+            flash("Failed to save ,Try again","error")
             return render_template("mainpage.html",form=form)
-    return render_template("mainpage.html",form = form)
+    return render_template("mainpage.html",form = form,show_navbar=True)

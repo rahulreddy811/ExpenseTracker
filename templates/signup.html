@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% block pagetitle %} Signup {% endblock pagetitle %}
-
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Signup.css') }}">{% endblock %}
 {% block content %}
-    <h3>Sign Up</h3>
-    <br>
-    <form method="post">
+
+<header><h3>Sign Up</h3></header>
+    
+    <main class="signup-forms">
+        <form method="post">
         {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}
@@ -22,4 +25,8 @@
             {{ form.submit() }}
         </p>
     </form>
+    </main>
+
+    <footer><a href="{{ url_for('auth.login') }}"><button id="create">Already Have an Account</button></a></footer>
+    
 {% endblock content %}

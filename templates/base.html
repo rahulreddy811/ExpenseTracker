@@ -3,14 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block pagetitle %} {% endblock pagetitle %}</title>
+
+    <title>{% block pagetitle %}Spendora{% endblock %}</title>
+
+   
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
     {% block css %}{% endblock %}
 </head>
+
 <body>
-     {% with messages = get_flashed_messages(with_categories=true) %}
+
+
+    {% if request.endpoint not in ['auth.login', 'auth.signup'] %}
+
+    <nav class="navbar">
+        <div class="logo">Spendora</div>
+        <div class="links">
+            {% if session.get('user_id') and session.get('user_role')=="Admin" %}
+                <a href="{{ url_for('admindash.admindashboard') }}">Admin</a>
+                <a href="{{ url_for('dashboard.profile') }}">Dashboard</a>
+                <a href="{{ url_for('auth.logout') }}">Logout</a>  
+
+            {% elif session.get('user_id') %}
+                <a href="{{ url_for('dashboard.profile') }}">Dashboard</a>
+                <a href="{{ url_for('auth.logout') }}">Logout</a>                
+
+            {% else %}
+                <a href="{{ url_for('auth.login') }}">Login</a>
+                <a href="{{ url_for('auth.signup') }}">Signup</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% endif %}
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div id="flash-popup">
+            <div id="flash-container">
                 {% for category, message in messages %}
                     <div class="flash-message {{ category }}">
                         {{ message }}
@@ -19,10 +50,14 @@
             </div>
         {% endif %}
     {% endwith %}
-    
-    {% block content %}
-        
-    {% endblock content %}
+
+    <!-- PAGE CONTENT -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- JS -->
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+
 </body>
 </html>

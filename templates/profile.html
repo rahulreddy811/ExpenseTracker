@@ -8,10 +8,9 @@
 
     {% if user.role == "Admin" %}
         <a href="{{ url_for('admindash.admindashboard') }}">
-    <button type="button">Admin</button>
-</a>
+    <button type="button">Admin</button></a>
+    <br>
     {% endif %}
-    <!--<p>Role: {{ user.role }}</p>-->
 
     <table class="custom-table">
         <thead>

@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 
 {% block pagetitle %} Homepage {% endblock pagetitle %}
-
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}">{% endblock %}
 {% block content %}
-    <center><p>Welcome to Expense Tracker</p></center>
-    <br>
-    <br>
-    <a href="{{ url_for('auth.signup') }}""><button>Signup</button></a>
-    <a href="{{ url_for('auth.login') }}""><button>Login</button></a>
 
-{% endblock content %}
+<div class="container">
+    <div class="text-section">
+        <h1 class="heading">Spendora</h1>
+        <p class="description">Expense Tracker helps you manage expenses easily by category.
+            Add and delete expenses to stay on top of your spending.</p>
+
+        <div class="authentication">
+            <a href="{{ url_for('auth.signup') }}""><button class=" signbtn">Signup</button></a>
+            <a href="{{ url_for('auth.login') }}""><button class=" loginbtn">Login</button></a>
+        </div>
+    </div>
+    <div class="image-cont"><img src="{{ url_for('static', filename='images/nobg.png') }}" alt="Profile Image"class="image"></div>
+</div>
+
+
+    {% endblock content %}

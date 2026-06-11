@@ -25,7 +25,7 @@ def signup():
             user_object = User(username = username,email = email,password = hashed_password)
             db.session.add(user_object)
             db.session.commit()
-            flash("Signedup successfully🎉")
+            flash("Signedup successfully🎉","success")
             print(f"user created: {username}")
             return redirect(url_for('auth.login'))
         except IntegrityError as e:
@@ -35,10 +35,10 @@ def signup():
             if "user.email" in error_messages:
                 flash("email already exists ☹️,try another email")
             elif "user.username" in error_messages:
-                flash("username already exists ☹️,try again")
+                flash("username already exists ☹️,try again","error")
             else:
-                flash("Sorry😞,Something went wrong ")
-    return render_template('signup.html',form = form)
+                flash("Sorry😞,Something went wrong ","error")
+    return render_template('signup.html',form = form,show_navbar=False)
 
 
 @auth.route('/login',methods = ['POST','GET'])
@@ -52,15 +52,23 @@ def login():
         user = User.query.filter_by(username = username).first()
 
         if not user:
-            flash("user does not exist❌")
+            flash("user does not exist❌","error")
             return render_template('login.html', form=form)
         
         if not check_password_hash(user.password,password):
-            flash("Incorrect password try again❌")
+            flash("Incorrect password try again❌","error")
             return render_template('login.html', form=form)
 
         session['user_id'] = user.id
-        flash('Login Successful🎉')
+        session['user_role'] = user.role
+        flash('Login Successful🎉',"success")
         return redirect(url_for('expense.set_expense'))
 
-    return render_template('Login.html',form = form)
+    return render_template('Login.html',form = form,show_navbar=False)
+
+@auth.route('/logout')
+def logout():
+    session.clear()
+    flash("Logout Successfully","success")
+    return redirect(url_for('Homepage'))
+

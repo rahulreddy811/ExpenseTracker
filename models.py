@@ -9,7 +9,7 @@ class User(db.Model):
     email = db.Column(db.String(200), nullable = False, unique = True)
     password = db.Column(db.String(), nullable = False)
     role = db.Column(db.String(20),default = "user")
-    expense = db.relationship('Expense',backref = 'user', lazy = True)
+    expense = db.relationship('Expense',backref = 'user', lazy = True, cascade = "all, delete")
 
 class Expense(db.Model):
     __tablename__ = "user_expenses"

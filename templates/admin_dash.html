@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block pagetitle %} Admin Dashboard {% endblock pagetitle %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">{% endblock %}
+
+
+{% block content %}
+
+<h1>Admin Dashboard</h1>
+
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>username</th>
+                <th>Role</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for user in  users %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user.username}}</td>
+                <td>{{ user.role }} </td>
+                <td>
+                    <form action=" {{ url_for('admindash.deleteuser', id = user.id) }} " method="post">
+                        <button class="btn delete">Delete</button>
+                </td>
+                <td>
+                    </form>
+                      <form action=" {{ url_for('admindash.updateuser' , id = user.id) }} " method="post">
+                        <button class="btn edit">Set admin</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
