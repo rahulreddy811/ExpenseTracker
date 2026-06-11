@@ -64,7 +64,7 @@ def login():
         flash('Login Successful🎉',"success")
         return redirect(url_for('expense.set_expense'))
 
-    return render_template('Login.html',form = form,show_navbar=False)
+    return render_template('login.html',form = form,show_navbar=False)
 
 @auth.route('/logout')
 def logout():
